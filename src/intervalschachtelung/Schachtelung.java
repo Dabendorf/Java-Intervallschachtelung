@@ -1,109 +1,122 @@
 package intervalschachtelung;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
-/**
-  *
-  * Beschreibung
-  *
-  * @version 1.0 vom 08.04.2013
-  * @author WESSNER
-  */
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.text.NumberFormatter;
 
-public class Schachtelung extends JFrame {
-  // Anfang Attribute
-  private JLabel jLabel1 = new JLabel();
-  private JLabel jLabel2 = new JLabel();
-  //private JNumberField jNumberFielda = new JNumberField();
-  private JTextField jNumberFielda = new JTextField();
-  private JLabel jLabel3 = new JLabel();
-  //private JNumberField jNumberFieldb = new JNumberField();
-  private JTextField jNumberFieldb = new JTextField();
-  private JLabel jLabel4 = new JLabel();
-  //private JNumberField jNumberFieldc = new JNumberField();
-  private JTextField jNumberFieldc = new JTextField();
-  private JButton jButtonRechnen = new JButton();
-  private JTextArea jTextArea1 = new JTextArea("");
-    private JScrollPane jTextArea1ScrollPane = new JScrollPane(jTextArea1);
-  private JLabel jLabel5 = new JLabel();
-  private JLabel jLabel6 = new JLabel();
-  private JTextArea jTextArea2 = new JTextArea("");
-    private JScrollPane jTextArea2ScrollPane = new JScrollPane(jTextArea2);
-  // Ende Attribute
-
-  public Schachtelung(String title) {
-    // Frame-Initialisierung
-    super(title);
-    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    int frameWidth = 455; 
-    int frameHeight = 300;
-    setSize(frameWidth, frameHeight);
-    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-    int x = (d.width - getSize().width) / 2;
-    int y = (d.height - getSize().height) / 2;
-    setLocation(x, y);
-    setResizable(false);
-    Container cp = getContentPane();
-    cp.setLayout(null);
-    // Anfang Komponenten
-
-    jLabel1.setBounds(8, 8, 438, 20);
-    jLabel1.setText("Berechnung von Nullstellen mit Intervallschachtelung für Parabeln");
-    cp.add(jLabel1);
-    jLabel2.setBounds(8, 40, 59, 23);
-    jLabel2.setText("y= f(x)=");
-    jLabel2.setFont(new Font("Dialog", Font.BOLD, 12));
-    cp.add(jLabel2);
-    jNumberFielda.setBounds(72, 40, 43, 20);
-    jNumberFielda.setText("2");
-    cp.add(jNumberFielda);
-    jLabel3.setBounds(120, 40, 35, 20);
-    jLabel3.setText("x≤ +");
-    cp.add(jLabel3);
-    jNumberFieldb.setBounds(160, 40, 43, 20);
-    jNumberFieldb.setText("-10");
-    cp.add(jNumberFieldb);
-    jLabel4.setBounds(216, 40, 22, 20);
-    jLabel4.setText("x +");
-    cp.add(jLabel4);
-    jNumberFieldc.setBounds(248, 40, 43, 20);
-    jNumberFieldc.setText("10.5");
-    cp.add(jNumberFieldc);
-    jButtonRechnen.setBounds(320, 32, 107, 33);
-    jButtonRechnen.setText("Rechnen");
-    jButtonRechnen.setMargin(new Insets(2, 2, 2, 2));
-    jButtonRechnen.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jButtonRechnen_ActionPerformed(evt);
-      }
-    });
-    cp.add(jButtonRechnen);
-    jTextArea1ScrollPane.setBounds(8, 96, 200, 164);
-    cp.add(jTextArea1ScrollPane);
-    jLabel5.setBounds(8, 72, 110, 20);
-    jLabel5.setText("Zwischenwerte:");
-    cp.add(jLabel5);
-    jLabel6.setBounds(248, 72, 110, 20);
-    jLabel6.setText("Nullstellen:");
-    cp.add(jLabel6);
-    jTextArea2ScrollPane.setBounds(240, 96, 200, 164);
-    cp.add(jTextArea2ScrollPane);
-    // Ende Komponenten
-
-    setVisible(true);
-  }
-
-  // Anfang Methoden
-  public void jButtonRechnen_ActionPerformed(ActionEvent evt) {
-    // E
-    
-  }
-
-  // Ende Methoden
-
-  public static void main(String[] args) {
-    new Schachtelung("Intervallschachtelung");
-  }
+public class Schachtelung {
+	
+	private JFrame frame1 = new JFrame("Intervallschachtelung");
+	
+	public Schachtelung() {
+		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame1.setPreferredSize(new Dimension(455,300)); //ANPASSEN
+		//frame1.setMinimumSize(new Dimension(300,200));
+		//frame1.setMaximumSize(new Dimension(450,300));
+		frame1.setResizable(true);
+		Container cp = frame1.getContentPane();
+		cp.setLayout(new GridBagLayout());
+		
+		JPanel panelOben = new JPanel();
+		panelOben.add(new JLabel("Berechnung von Nullstellen mit Intervallschachtelung für Parabeln"));
+		
+		JPanel panelMitte = new JPanel();
+		JLabel yfx = new JLabel("y = f(x) =");
+		yfx.setFont(new Font("Dialog", Font.BOLD, 12));
+		NumberFormat format1 = NumberFormat.getInstance();
+		NumberFormatter formatter1 = new NumberFormatter(format1);
+		format1.setGroupingUsed(false);
+	    formatter1.setAllowsInvalid(false);
+		JFormattedTextField textFeldA = new JFormattedTextField(formatter1);
+		textFeldA.setText("2");
+		textFeldA.setColumns(4);
+		textFeldA.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel x2Wert = new JLabel("x² +");
+		NumberFormat format2 = NumberFormat.getInstance();
+		NumberFormatter formatter2 = new NumberFormatter(format1);
+		format2.setGroupingUsed(false);
+	    formatter2.setAllowsInvalid(false);
+		JFormattedTextField textFeldB = new JFormattedTextField(formatter2);
+		textFeldB.setText("-10");
+		textFeldB.setColumns(4);
+		textFeldB.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel xWert = new JLabel("x +");
+		NumberFormat format3 = NumberFormat.getInstance();
+		NumberFormatter formatter3 = new NumberFormatter(format1);
+		format3.setGroupingUsed(false);
+	    formatter3.setAllowsInvalid(false);
+		JFormattedTextField textFeldC = new JFormattedTextField(formatter3);
+		textFeldC.setText("10.5");
+		textFeldC.setColumns(4);
+		textFeldC.setHorizontalAlignment(SwingConstants.RIGHT);
+		JButton rechnen = new JButton("Rechnen");
+		rechnen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				berechnen();
+			}
+		});
+		panelMitte.add(yfx);
+		panelMitte.add(textFeldA);
+		panelMitte.add(x2Wert);
+		panelMitte.add(textFeldB);
+		panelMitte.add(xWert);
+		panelMitte.add(textFeldC);
+		panelMitte.add(rechnen);
+		
+		JPanel panelUntenLinks = new JPanel();
+		panelUntenLinks.setLayout(new BorderLayout());
+		JList<String> zwischenwerteListe = new JList<String>();
+		DefaultListModel<String> zwischenwerteListeModel = new DefaultListModel<String>();
+		JScrollPane zwischenwerteListeScrollPane = new JScrollPane(zwischenwerteListe);
+		zwischenwerteListe.setModel(zwischenwerteListeModel);
+	    panelUntenLinks.add(new JLabel("Zwischenwerte:"), BorderLayout.NORTH);
+	    panelUntenLinks.add(zwischenwerteListeScrollPane, BorderLayout.CENTER);
+		
+		JPanel panelUntenRechts = new JPanel();
+		panelUntenRechts.setLayout(new BorderLayout());
+		JList<String> nullstellenListe = new JList<String>();
+		DefaultListModel<String> nullstellenListeModel = new DefaultListModel<String>();
+		JScrollPane nullstellenListeScrollPane = new JScrollPane(nullstellenListe);
+		nullstellenListe.setModel(nullstellenListeModel);
+	    panelUntenRechts.add(new JLabel("Nullstellen:"), BorderLayout.NORTH);
+	    panelUntenRechts.add(nullstellenListeScrollPane, BorderLayout.CENTER);
+	    
+	    panelOben.setPreferredSize(new Dimension(0,0));
+	    panelMitte.setPreferredSize(new Dimension(0,0));
+	    panelUntenLinks.setPreferredSize(new Dimension(0,0));
+	    panelUntenRechts.setPreferredSize(new Dimension(0,0));
+		
+		cp.add(panelOben, new GridBagFelder(0,0,2,1,1,0.1));
+		cp.add(panelMitte, new GridBagFelder(0,1,2,1,1,0.1));
+		cp.add(panelUntenLinks, new GridBagFelder(0,2,1,1,0.5,0.6));
+		cp.add(panelUntenRechts, new GridBagFelder(1,2,1,1,0.5,0.6));
+		
+		frame1.pack();
+		frame1.setLocationRelativeTo(null);
+		frame1.setVisible(true);
+	}
+	
+	private void berechnen() {
+		System.out.println("Dings");
+	}
+	
+	public static void main(String[] args) {
+		new Schachtelung();
+	}
 }
