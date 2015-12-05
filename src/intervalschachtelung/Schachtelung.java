@@ -20,15 +20,24 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
 
+/**
+ * Dies ist die Hauptklasse des Intervallschachtelungsprogramms, welche die graphische Oberflaeche generiert
+ * und die einzelnen Intervalle hin zu den Nullstellen ueberprueft.
+ * 
+ * @author Lukas Schramm
+ * @version 1.0
+ *
+ */
 public class Schachtelung {
 	
+	/**Programmfenster*/
 	private JFrame frame1 = new JFrame("Intervallschachtelung");
 	
 	public Schachtelung() {
 		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame1.setPreferredSize(new Dimension(455,300)); //ANPASSEN
-		//frame1.setMinimumSize(new Dimension(300,200));
-		//frame1.setMaximumSize(new Dimension(450,300));
+		frame1.setPreferredSize(new Dimension(460,300));
+		frame1.setMinimumSize(new Dimension(460,300));
+		frame1.setMaximumSize(new Dimension(690,450));
 		frame1.setResizable(true);
 		Container cp = frame1.getContentPane();
 		cp.setLayout(new GridBagLayout());
@@ -112,6 +121,9 @@ public class Schachtelung {
 		frame1.setVisible(true);
 	}
 	
+	/**
+	 * 
+	 */
 	private void berechnen() {
 		System.out.println("Dings");
 	}
